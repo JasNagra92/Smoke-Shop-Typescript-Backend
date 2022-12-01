@@ -34,6 +34,7 @@ class SmokeShopServer {
     appRoutes(app);
   }
 
+  // middleware that will be called after routes middleware to respond with error to client
   private globalErrorHandler(app: Application): void {}
 
   private async startServer(app: Application): Promise<void> {
