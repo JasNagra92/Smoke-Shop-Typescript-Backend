@@ -7,8 +7,12 @@ import compression from 'compression';
 import cookieSession from 'cookie-session';
 import appRoutes from './routes';
 import { config } from './config';
+import { CustomError, IErrorResponse } from '../src/shared/globals/helpers/errorHandler';
+import HTTP_STATUS from 'http-status-codes';
+import Logger from 'bunyan';
 
 const PORT = 4000;
+const log: Logger = config.createLogger('serverSetup');
 
 class SmokeShopServer {
   app: Application;
@@ -59,8 +63,15 @@ class SmokeShopServer {
 
   // middleware that will be called after routes middleware to respond with error to client
   private globalErrorHandler(app: Application): void {
-    app.all('*', (req: Request, res: Response, next: NextFunction) => {
-      res.status(404).json({ message: `${req.originalUrl} not found` });
+    app.all('*', (req: Request, res: Response) => {
+      res.status(HTTP_STATUS.NOT_FOUND).json({ message: `${req.originalUrl} not found` });
+    });
+
+    app.use((error: IErrorResponse, _req: Request, res: Response, next: NextFunction) => {
+      log.error(error);
+      if (error instanceof CustomError) {
+        return res.status(error.statusCode).json(error.serializeErrors());
+      }
       next();
     });
   }
@@ -71,13 +82,13 @@ class SmokeShopServer {
       const httpServer: http.Server = new http.Server(app);
       this.startHTTPServer(httpServer);
     } catch (error) {
-      console.log(error);
+      log.error(error);
     }
   }
 
   private startHTTPServer(httpServer: http.Server): void {
     httpServer.listen(PORT, () => {
-      console.log('server started now listening on ' + PORT);
+      log.info('server started now listening on ' + PORT);
     });
   }
 }
