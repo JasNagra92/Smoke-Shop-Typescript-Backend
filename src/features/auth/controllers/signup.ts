@@ -1,10 +1,12 @@
-import { AuthPayload } from './../interfaces/auth.interface';
+import { BadRequestError } from '../../../shared/globals/helpers/errorHandler';
+import { IAuthPayload } from './../interfaces/auth.interface';
 import { userServices } from './../../../shared/services/db/user.services';
 import { IUserDocument } from './../../user/interfaces/user.interface';
-=import { Request, Response } from 'express';
-import { Helpers } from 'src/shared/globals/helpers';
+import { Request, Response } from 'express';
+import { Helpers } from '../../../shared/globals/helpers/helpers';
 import JWT from 'jsonwebtoken';
 import { config } from '../../../config';
+import 'express-async-errors';
 
 export class SignUp {
   public async create(req: Request, res: Response): Promise<void> {
@@ -14,7 +16,7 @@ export class SignUp {
     // check if user already exists in database
     const exists = await userServices.getUserByUsernameOrEmail(username, email);
     if (exists) {
-      throw new Error('user already exists');
+      throw new BadRequestError('user already exists');
     }
 
     // create 12 digit userId for user
@@ -47,7 +49,7 @@ export class SignUp {
     } as unknown as IUserDocument;
   }
 
-  private signToken(data: AuthPayload): string {
+  private signToken(data: IAuthPayload): string {
     return JWT.sign(
       {
         userId: data.userId,
