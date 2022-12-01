@@ -1,12 +1,12 @@
 declare global {
   namespace Express {
     interface Request {
-      currentUser?: AuthPayload;
+      currentUser?: IAuthPayload;
     }
   }
 }
 
-export interface AuthPayload {
+export interface IAuthPayload {
   userId: string;
   email: string;
   username: string;

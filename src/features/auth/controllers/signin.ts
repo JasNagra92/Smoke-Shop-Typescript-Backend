@@ -9,7 +9,6 @@ export class SignIn {
     const { username, password } = req.body;
 
     const user = await userServices.findUserByUsername(username);
-    console.log(user);
     if (!user) {
       throw new Error('username not found');
     }
@@ -19,17 +18,17 @@ export class SignIn {
       throw new Error('passwords do not match');
     }
     // create jwt token with retrieved user information
-    const token = JWT.sign(
+    const userJwt: string = JWT.sign(
       {
-        username: user?.username,
-        email: user?.email,
-        userId: user?.userId
+        username: user.username,
+        email: user.email,
+        userId: user.userId
       },
       config.JWT_SECRET!
     );
 
-    req.session = { jwt: token };
+    req.session = { jwt: userJwt };
 
-    res.status(200).json({ message: 'login successfull' });
+    res.status(200).json({ message: 'login successfull', token: userJwt });
   }
 }
