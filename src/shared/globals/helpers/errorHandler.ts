@@ -47,3 +47,12 @@ export class NotAuthorizedError extends CustomError {
     super(message);
   }
 }
+
+export class ValidationError extends CustomError {
+  statusCode = HTTP_STATUS.BAD_REQUEST;
+  status = 'error';
+
+  constructor(message: string) {
+    super(message);
+  }
+}

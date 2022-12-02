@@ -7,11 +7,13 @@ export class CurrentUser {
   public async read(req: Request, res: Response, next: NextFunction): Promise<void> {
     let isUser = false;
     let token = null;
+    let user = null;
     const existingUser: IUserDocument = (await userServices.findUserByUsername(`${req.currentUser?.username}`)) as IUserDocument;
     if (Object.keys(existingUser).length) {
       isUser = true;
       token = req.session?.jwt;
+      user = existingUser;
     }
-    res.status(HTTP_STATUS.OK).json({ token, isUser });
+    res.status(HTTP_STATUS.OK).json({ token, isUser, user });
   }
 }

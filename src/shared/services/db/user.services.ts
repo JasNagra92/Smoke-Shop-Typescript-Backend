@@ -1,5 +1,7 @@
+import { ValidationError } from './../../globals/helpers/errorHandler';
 import { IUserDocument } from './../../../features/user/interfaces/user.interface';
 import { userModel } from '../../../features/user/models/user.model';
+import validator from 'validator';
 
 class UserServices {
   public async addUserToDB(data: IUserDocument): Promise<void> {
@@ -18,6 +20,18 @@ class UserServices {
 
     const user: IUserDocument = (await userModel.findOne(query).exec()) as IUserDocument;
     return user;
+  }
+
+  public async validateCredentials(username: string, password: string, phoneNumber: string): Promise<void> {
+    if (!validator.isEmail(username)) {
+      throw new ValidationError('email must be valid');
+    }
+    if (!validator.isStrongPassword(password)) {
+      throw new ValidationError('password not strong enough');
+    }
+    if (!validator.isMobilePhone(phoneNumber)) {
+      throw new ValidationError('phone number must be a phone number');
+    }
   }
 }
 

@@ -6,7 +6,7 @@ import { Request, Response } from 'express';
 import { Helpers } from '../../../shared/globals/helpers/helpers';
 import JWT from 'jsonwebtoken';
 import { config } from '../../../config';
-import 'express-async-errors';
+import HTTP_STATUS from 'http-status-codes';
 
 export class SignUp {
   public async create(req: Request, res: Response): Promise<void> {
@@ -18,23 +18,30 @@ export class SignUp {
     if (exists) {
       throw new BadRequestError('user already exists');
     }
+    try {
+      // validate username and password fields - validator will throw error and be caught in catch statement
+      // also validates phone number is a real moblie number
+      await userServices.validateCredentials(username, password, phoneNumber);
 
-    // create 12 digit userId for user
-    const userId = Helpers.createRandomIntegers(12);
+      // create 12 digit userId for user
+      const userId = Helpers.createRandomIntegers(12);
 
-    // add user Id to data sent from the front end form
-    const dataToSave = SignUp.prototype.createUserDocument(userId, { username, password, email, phoneNumber, name });
+      // add user Id to data sent from the front end form
+      const dataToSave = SignUp.prototype.createUserDocument(userId, { username, password, email, phoneNumber, name });
 
-    // save user to database
-    await userServices.addUserToDB(dataToSave);
+      // save user to database
+      await userServices.addUserToDB(dataToSave);
 
-    // create jwt with user data
-    const token = SignUp.prototype.signToken({ username, email, userId });
+      // create jwt with user data
+      const token = SignUp.prototype.signToken({ username, email, userId });
 
-    // add token to request object
-    req.session = { jwt: token };
+      // add token to request object
+      req.session = { jwt: token };
 
-    res.status(200).json({ message: 'user signed up successfully' });
+      res.status(200).json({ message: 'user signed up successfully' });
+    } catch (error: any) {
+      res.status(HTTP_STATUS.BAD_REQUEST).json(error.message);
+    }
   }
 
   private createUserDocument(userId: string, data: any): IUserDocument {
