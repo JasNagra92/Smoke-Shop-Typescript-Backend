@@ -1,10 +1,10 @@
 import { userServices } from './../../../shared/services/db/user.services';
 import { IUserDocument } from 'src/features/user/interfaces/user.interface';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
 
 export class CurrentUser {
-  public async read(req: Request, res: Response, next: NextFunction): Promise<void> {
+  public async read(req: Request, res: Response): Promise<void> {
     let isUser = false;
     let token = null;
     let user = null;

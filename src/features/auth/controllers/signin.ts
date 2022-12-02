@@ -1,10 +1,11 @@
 import { userServices } from './../../../shared/services/db/user.services';
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import JWT from 'jsonwebtoken';
 import { config } from 'src/config';
+import HTTP_STATUS from 'http-status-codes';
 
 export class SignIn {
-  public async verify(req: Request, res: Response, next: NextFunction): Promise<void> {
+  public async verify(req: Request, res: Response): Promise<void> {
     // destructure username and password from request
     const { username, password } = req.body;
 
@@ -29,6 +30,6 @@ export class SignIn {
 
     req.session = { jwt: userJwt };
 
-    res.status(200).json({ message: 'login successfull', token: userJwt });
+    res.status(HTTP_STATUS.OK).json({ message: 'login successfull', token: userJwt });
   }
 }

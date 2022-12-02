@@ -1,5 +1,5 @@
 import { smokeShopServer } from './setupServer';
-import express, { Express, Application } from 'express';
+import express, { Express } from 'express';
 import { config } from './config';
 import dataBaseConnect from './setupDatabase';
 

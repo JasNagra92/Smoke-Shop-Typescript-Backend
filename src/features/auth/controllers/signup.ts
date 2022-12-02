@@ -38,12 +38,14 @@ export class SignUp {
       // add token to request object
       req.session = { jwt: token };
 
-      res.status(200).json({ message: 'user signed up successfully' });
+      res.status(HTTP_STATUS.CREATED).json({ message: 'user signed up successfully' });
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      res.status(HTTP_STATUS.BAD_REQUEST).json(error.message);
+      throw new BadRequestError(`${error.message}`);
     }
   }
 
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   private createUserDocument(userId: string, data: any): IUserDocument {
     const { username, password, email, phoneNumber, name } = data;
     return {
