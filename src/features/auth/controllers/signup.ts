@@ -41,6 +41,7 @@ export class SignUp {
       res.status(HTTP_STATUS.CREATED).json({ message: 'user signed up successfully' });
       // eslint-disable-next-line  @typescript-eslint/no-explicit-any
     } catch (error: any) {
+      // error will be caught by global error handler in setupServer class and send the response to client
       throw new BadRequestError(`${error.message}`);
     }
   }
