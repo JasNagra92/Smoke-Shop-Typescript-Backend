@@ -8,3 +8,9 @@ export interface IUserDocument {
   comparePassword: (password: string) => Promise<boolean>;
   hashPassword: (password: string) => Promise<string>;
 }
+
+export interface IEmailJob {
+  receiverEmail: string;
+  subject: string;
+  body: string;
+}
