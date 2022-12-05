@@ -8,10 +8,10 @@ Accept: application/json
 withCredentials: true
 
 {
-  "username": "dannyboi23",
+  "username": "dannyte",
   "name":"danny2",
   "password": "qwerty1",
-  "email": "manny22",
+  "email": "manny22@test.com",
   "phoneNumber": "778-889-1111"
 }
 
