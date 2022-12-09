@@ -1,9 +1,11 @@
+import { emailServices } from './../../../shared/services/email/email.services';
 import { authServices } from './../../../shared/services/db/auth.services';
 import HTTP_STATUS from 'http-status-codes';
 import { BadRequestError } from './../../../shared/globals/helpers/errorHandler';
 import { userServices } from './../../../shared/services/db/user.services';
 import { Request, Response } from 'express';
 import crypto from 'crypto';
+import { config } from '../../../config';
 
 export class Password {
   public async forgotPassword(req: Request, res: Response): Promise<void> {
@@ -19,6 +21,7 @@ export class Password {
     const randomCharacters: string = randomBytes.toString('hex');
 
     await authServices.setResetToken(email, randomCharacters);
+    await emailServices.sendForgotPasswordEmail(email, user.username, `${config.CLIENT_URL}/resetPassword?token=${randomCharacters}`);
 
     res.status(HTTP_STATUS.OK).json({ message: 'reset email sent' });
   }
