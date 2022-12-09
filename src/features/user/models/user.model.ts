@@ -30,6 +30,13 @@ const userSchema: Schema = new Schema({
   userId: {
     type: String,
     required: true
+  },
+  passwordResetToken: {
+    type: String,
+    default: ''
+  },
+  passwordResetExpires: {
+    type: Number
   }
 });
 
