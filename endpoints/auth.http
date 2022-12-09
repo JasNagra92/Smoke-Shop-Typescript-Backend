@@ -8,10 +8,10 @@ Accept: application/json
 withCredentials: true
 
 {
-  "username": "dannyboi23",
-  "name":"danny2",
-  "password": "qwerty1",
-  "email": "manny22",
+  "username": "dannyboi23456",
+  "name":"danny2345",
+  "password": "qwertyAA1234!",
+  "email": "test4@hotmail.com",
   "phoneNumber": "778-889-1111"
 }
 
@@ -28,8 +28,8 @@ Accept: application/json
 withCredentials: true
 
 {
-  "username":"dannyboi2",
-  "password":"qwerty1"
+  "username":"dannyboi23456",
+  "password":"abcABC123!"
 }
 
 ###
@@ -37,3 +37,23 @@ GET {{baseUrl}}/{{urlPath}}/currentuser
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
+
+###
+POST {{baseUrl}}/{{urlPath}}/forgotPassword
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "email":"test4@hotmail.com"
+}
+###
+POST {{baseUrl}}/{{urlPath}}/resetPassword/006c353659145276f91f24e680904012d97d05cf
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "password":"abcABC123!",
+  "confirmPassword":"abcABC123!"
+}

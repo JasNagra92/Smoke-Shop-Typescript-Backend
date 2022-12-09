@@ -22,8 +22,8 @@ class UserServices {
     return user;
   }
 
-  public async validateCredentials(username: string, password: string, phoneNumber: string): Promise<void> {
-    if (!validator.isEmail(username)) {
+  public async validateCredentials(email: string, password: string, phoneNumber: string): Promise<void> {
+    if (!validator.isEmail(email)) {
       throw new ValidationError('email must be valid');
     }
     if (!validator.isStrongPassword(password)) {
