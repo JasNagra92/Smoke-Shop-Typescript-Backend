@@ -1,65 +1,59 @@
 import { BadRequestError } from './../../globals/helpers/errorHandler';
-import nodemailer from 'nodemailer';
-import Mail from 'nodemailer/lib/mailer';
 import { config } from 'src/config';
 import Logger from 'bunyan';
 import sendGridMail from '@sendgrid/mail';
-
-interface IMailOptions {
-  from: string;
-  to: string;
-  subject: string;
-  html: string;
-}
+import { formatInTimeZone } from 'date-fns-tz';
+sendGridMail.setApiKey(config.SENDGRID_API_KEY!);
 
 const log: Logger = config.createLogger('mail');
 
 export class EmailServices {
-  public async sendEmail(receiverEmail: string, subject: string, body: string): Promise<void> {
-    if (config.NODE_ENV === 'development' || config.NODE_ENV === 'test') {
-      this.sendDevelopmentEmail(receiverEmail, subject, body);
-    } else {
-      this.sendProductionEmail(receiverEmail, subject, body);
-    }
-  }
-
-  private async sendDevelopmentEmail(receiverEmail: string, subject: string, body: string): Promise<void> {
-    const mailOptions = {
-      from: config.SENDER_EMAIL,
-      to: receiverEmail,
-      subject,
-      html: body
-    };
-
-    const transporter: Mail = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      secure: false,
-      auth: {
-        user: config.SENDER_EMAIL,
-        pass: config.SENDER_PASSWORD
+  public async sendReceiptEmail(
+    receiverEmail: string,
+    name: string,
+    email: string,
+    orderNumber: string,
+    pickupDate: any,
+    amount_total: number
+  ): Promise<void> {
+    const msg: sendGridMail.MailDataRequired = {
+      to: config.NODE_ENV === 'development' ? config.SENDER_EMAIL : receiverEmail,
+      from: config.NODE_ENV === 'development' ? config.SENDER_EMAIL! : 'nagra-smoke-house@outlook.com',
+      templateId: 'd-b4a225546f484a32b1e882fd3bfaf9ce',
+      dynamicTemplateData: {
+        customer_name: name,
+        customer_email: email,
+        order_number: orderNumber,
+        pickup_date: formatInTimeZone(new Date(`${pickupDate.pickupDate}`), 'Canada/Pacific', 'MM/dd/yyyy H:mm'),
+        total: (amount_total / 100).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'CAD'
+        })
       }
-    });
-    try {
-      await transporter.sendMail(mailOptions);
-      log.info('dev email sent successfully');
-    } catch (error) {
-      log.error('error sending mail');
-      throw new BadRequestError('error sending mail');
-    }
-  }
-  public async sendProductionEmail(receiverEmail: string, subject: string, body: string): Promise<void> {
-    const mailOptions: IMailOptions = {
-      from: `Nagra Smoke Shop <${config.SENDER_EMAIL}>`,
-      to: receiverEmail,
-      subject,
-      html: body
     };
     try {
-      await sendGridMail.send(mailOptions);
+      await sendGridMail.send(msg);
       log.info('email sent successfully');
     } catch (error) {
       log.error('problem sending email');
+      throw new BadRequestError('problem sending email');
+    }
+  }
+  public async sendForgotPasswordEmail(receiverEmail: string, username: string, resetLink: string): Promise<void> {
+    const msg: sendGridMail.MailDataRequired = {
+      to: config.NODE_ENV === 'development' ? config.SENDER_EMAIL : receiverEmail,
+      from: 'nagra-smoke-house@outlook.com',
+      templateId: 'd-dfe80730cfc2441695cbe86ffec81fb5',
+      dynamicTemplateData: {
+        username,
+        resetLink
+      }
+    };
+    try {
+      await sendGridMail.send(msg);
+      log.info('email sent successfully');
+    } catch (error) {
+      log.error(error);
       throw new BadRequestError('problem sending email');
     }
   }
