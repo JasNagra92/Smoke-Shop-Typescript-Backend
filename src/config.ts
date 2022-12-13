@@ -13,6 +13,9 @@ class Config {
   SENDER_EMAIL: string | undefined;
   SENDER_PASSWORD: string | undefined;
   SENDGRID_API_KEY: string | undefined;
+  REDIS_HOST: string | undefined;
+  SENDER_EMAIL: string | undefined;
+  SENDER_PASSWORD: string | undefined;
 
   constructor() {
     this.MONGO_URL = process.env.MONGO_URL;
@@ -24,6 +27,7 @@ class Config {
     this.SENDER_EMAIL = process.env.SENDER_EMAIL;
     this.SENDER_PASSWORD = process.env.SENDER_PASSWORD;
     this.SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
+    this.REDIS_HOST = process.env.REDIS_HOST;
   }
   public validateConfig(): void {
     for (const [key, value] of Object.entries(this)) {
