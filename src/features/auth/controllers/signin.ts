@@ -14,7 +14,7 @@ export class SignIn {
       throw new Error('username not found');
     }
     // check password in request body with password stored in database
-    const checkPassword = await user?.comparePassword(password);
+    const checkPassword: boolean = await user?.comparePassword(password);
     if (!checkPassword) {
       throw new Error('passwords do not match');
     }

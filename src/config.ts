@@ -10,6 +10,9 @@ class Config {
   KEY_TWO: string | undefined;
   JWT_SECRET: string | undefined;
   CLIENT_URL: string | undefined;
+  SENDER_EMAIL: string | undefined;
+  SENDER_PASSWORD: string | undefined;
+  SENDGRID_API_KEY: string | undefined;
   REDIS_HOST: string | undefined;
   SENDER_EMAIL: string | undefined;
   SENDER_PASSWORD: string | undefined;
@@ -21,9 +24,10 @@ class Config {
     this.NODE_ENV = process.env.NODE_ENV;
     this.JWT_SECRET = process.env.JWT_SECRET;
     this.CLIENT_URL = process.env.CLIENT_URL;
-    this.REDIS_HOST = process.env.REDIS_HOST;
     this.SENDER_EMAIL = process.env.SENDER_EMAIL;
     this.SENDER_PASSWORD = process.env.SENDER_PASSWORD;
+    this.SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
+    this.REDIS_HOST = process.env.REDIS_HOST;
   }
   public validateConfig(): void {
     for (const [key, value] of Object.entries(this)) {

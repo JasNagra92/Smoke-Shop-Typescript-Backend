@@ -21,7 +21,7 @@ export class SignUp {
     try {
       // validate username and password fields - validator will throw error and be caught in catch statement
       // also validates phone number is a real moblie number
-      await userServices.validateCredentials(username, password, phoneNumber);
+      await userServices.validateCredentials(email, password, phoneNumber);
 
       // create 12 digit userId for user
       const userId = Helpers.createRandomIntegers(12);
