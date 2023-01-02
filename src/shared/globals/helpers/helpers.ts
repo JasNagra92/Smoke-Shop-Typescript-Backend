@@ -1,3 +1,6 @@
+import { IOrderForDatabase } from 'src/features/cart/interfaces/order.interface';
+import { orderModel } from 'src/features/cart/models/order.model';
+
 export class Helpers {
   static createRandomIntegers(num: number): string {
     const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
@@ -8,5 +11,19 @@ export class Helpers {
       length++;
     }
     return string;
+  }
+  static async createOrderNumber(): Promise<number> {
+    let repeat;
+    let orderNumber;
+    do {
+      orderNumber = this.randomNumbers(100000, 999999);
+      const exists: IOrderForDatabase | null = await orderModel.findOne({ orderNumber }).exec();
+      repeat = exists ? true : false;
+    } while (repeat);
+    return orderNumber;
+  }
+
+  private static randomNumbers(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min));
   }
 }
