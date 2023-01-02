@@ -43,6 +43,7 @@ export class Webhook {
 
       const orderNumber = await Helpers.createOrderNumber();
       const today = formatInTimeZone(new Date(Date.now()), 'Canada/Pacific', 'MM/dd/yyyy H:mm');
+
       orderQueue.addOrderJob('addOrderToDB', {
         checkoutSessionId: id,
         name,
@@ -53,6 +54,8 @@ export class Webhook {
         orderNumber,
         orderDate: today
       });
+
+      emailQueue.addJob('sendReceiptEmail', { name, email, orderNumber, pickupDate: `${pickupDate!.pickupDate}`, amount_total });
 
       res.status(200).end();
     } else {
