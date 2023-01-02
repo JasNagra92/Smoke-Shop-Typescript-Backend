@@ -1,10 +1,19 @@
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
-export interface IMenuItemDocument extends Document {
+export interface IMenuItemDocumentFrontEnd extends Document {
+  _id: string | mongoose.Types.ObjectId;
   name: string;
-  price: number;
-  price_id: string;
   stock: number;
   description: string;
   priceStr: string;
+}
+
+export interface IMenuItemDocumentBackend extends Document {
+  _id: string | mongoose.Types.ObjectId;
+  name: string;
+  stock: number;
+  description: string;
+  priceStr: string;
+  price_id: string;
+  price: number;
 }
