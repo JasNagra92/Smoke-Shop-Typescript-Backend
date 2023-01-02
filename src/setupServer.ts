@@ -53,7 +53,14 @@ class SmokeShopServer {
 
   private standardMiddleware(app: Application): void {
     app.use(compression());
-    app.use(json({ limit: '50mb' }));
+    // if request comes from webhook url, do not parse
+    app.use((req, res, next) => {
+      if (req.originalUrl === '/webhook') {
+        next();
+      } else {
+        express.json()(req, res, next);
+      }
+    });
     app.use(urlencoded({ extended: true, limit: '50mb' }));
   }
 
