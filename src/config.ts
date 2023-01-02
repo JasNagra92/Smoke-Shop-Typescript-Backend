@@ -15,6 +15,7 @@ class Config {
   SENDGRID_API_KEY: string | undefined;
   REDIS_HOST: string | undefined;
   STRIPE_API_KEY: string | undefined;
+  STRIPE_ENDPOINT_SECRET: string | undefined;
 
   constructor() {
     this.MONGO_URL = process.env.MONGO_URL;
@@ -28,6 +29,7 @@ class Config {
     this.SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
     this.REDIS_HOST = process.env.REDIS_HOST;
     this.STRIPE_API_KEY = process.env.STRIPE_API_KEY;
+    this.STRIPE_ENDPOINT_SECRET = process.env.STRIPE_ENDPOINT_SECRET;
   }
   public validateConfig(): void {
     for (const [key, value] of Object.entries(this)) {
