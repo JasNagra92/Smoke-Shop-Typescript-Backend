@@ -19,7 +19,7 @@ resource "aws_elasticache_replication_group" "smokeServer_redis_cluster" {
   ]
 
   provisioner "local-exec" {
-    # update redis endpoint in env file using this script
+    # update redis endpoint in env file using this script when elasticache is created
     command = file("./userdata/update-env-file.sh")
 
     environment = {
