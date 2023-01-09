@@ -11,9 +11,9 @@ import { menuRoutes } from './features/menu/routes/menuRoutes';
 const BASE_PATH = '/api/v1';
 
 export default (app: Application) => {
-  app.use('/health', healthRoutes.healthRoute());
-  app.use('/instance', healthRoutes.instance());
-  app.use('/env', healthRoutes.env());
+  app.use('', healthRoutes.healthRoute());
+  app.use('', healthRoutes.instance());
+  app.use('', healthRoutes.env());
   app.use('/queues', serverAdapter.getRouter());
   app.use('/webhook', stripeRoutes.webhookRoutes());
   app.use('/queues', serverAdapter.getRouter());
