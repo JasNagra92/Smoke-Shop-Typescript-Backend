@@ -57,7 +57,7 @@ resource "aws_alb_listener_rule" "alb_https_listener_rule" {
   }
   condition {
     path_pattern {
-      value = ["/*"]
+      values = ["/*"]
     }
   }
 }

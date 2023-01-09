@@ -25,7 +25,7 @@ resource "aws_security_group" "bastion_host_sg" {
 }
 
 resource "aws_security_group" "alb_sg" {
-  name        = "${local-prefix}-alb-sg"
+  name        = "${local.prefix}-alb-sg"
   description = "Allows traffic through the application load balancer"
   vpc_id      = aws_vpc.main.id
 
