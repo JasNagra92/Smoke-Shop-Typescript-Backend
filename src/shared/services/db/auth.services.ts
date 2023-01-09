@@ -1,5 +1,5 @@
-import { IUserDocument } from 'src/features/user/interfaces/user.interface';
-import { userModel } from 'src/features/user/models/user.model';
+import { IUserDocument } from '../../../features/user/interfaces/user.interface';
+import { userModel } from '../../../features/user/models/user.model';
 
 export class AuthServices {
   public async setResetToken(email: string, token: string): Promise<void> {

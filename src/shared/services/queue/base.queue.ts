@@ -1,12 +1,12 @@
 import { IUserDocument } from 'src/features/user/interfaces/user.interface';
-import { IEmailJob } from './../../../features/user/interfaces/user.interface';
+import { IEmailJob } from '../../../features/user/interfaces/user.interface';
 import Queue, { Job } from 'bull';
 import Logger from 'bunyan';
 import { createBullBoard } from '@bull-board/api';
 import { BullAdapter } from '@bull-board/api/bullAdapter';
 import { ExpressAdapter } from '@bull-board/express';
 import { config } from './../../../config';
-import { IOrderJob } from 'src/features/cart/interfaces/order.interface';
+import { IOrderJob } from '../../../features/cart/interfaces/order.interface';
 
 type IBaseJobData = IEmailJob | IUserDocument | IOrderJob;
 

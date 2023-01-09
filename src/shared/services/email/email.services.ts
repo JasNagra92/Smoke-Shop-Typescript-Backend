@@ -1,5 +1,5 @@
 import { BadRequestError } from './../../globals/helpers/errorHandler';
-import { config } from 'src/config';
+import { config } from '../../../config';
 import Logger from 'bunyan';
 import sendGridMail from '@sendgrid/mail';
 import { formatInTimeZone } from 'date-fns-tz';

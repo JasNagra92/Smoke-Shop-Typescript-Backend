@@ -1,7 +1,7 @@
 import { userServices } from './../../../shared/services/db/user.services';
 import { Request, Response } from 'express';
 import JWT from 'jsonwebtoken';
-import { config } from 'src/config';
+import { config } from '../../../config';
 import HTTP_STATUS from 'http-status-codes';
 
 export class SignIn {

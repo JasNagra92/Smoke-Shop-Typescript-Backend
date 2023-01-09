@@ -1,7 +1,7 @@
 import { orderServices } from './../services/db/order.services';
 import { DoneCallback, Job } from 'bull';
 import Logger from 'bunyan';
-import { config } from 'src/config';
+import { config } from '../../config';
 
 const log: Logger = config.createLogger('OrderWorkerLog');
 
