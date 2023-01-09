@@ -1,7 +1,7 @@
 import HTTP_STATUS from 'http-status-codes';
 import express, { Request, Response, Router } from 'express';
 import moment from 'moment';
-import { config } from 'src/config';
+import { config } from '../../../config';
 import axios from 'axios';
 
 class HealthRoutes {
