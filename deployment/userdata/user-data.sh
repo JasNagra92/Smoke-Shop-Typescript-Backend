@@ -43,7 +43,7 @@ fi
 cd /home/ec2-user
 
 git clone -b dev https://github.com/JasNagra92/Smoke-Shop-Typescript-Backend.git
-cd Nagra-Smoke-Shop-TypescriptBackend
+cd Smoke-Shop-Typescript-Backend
 npm install
 aws s3 sync s3://smoke-server-env-files/develop .
 unzip env-file.zip

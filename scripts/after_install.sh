@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/ec2-user/Nagra-Smoke-Shop-TypescriptBackend
+cd /home/ec2-user/Smoke-Shop-Typescript-Backend
 sudo rm -rf env-file.zip
 sudo rm -rf .env
 sudo rm .env.develop
