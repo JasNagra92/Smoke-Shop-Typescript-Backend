@@ -14,7 +14,9 @@ export interface IUserDocument extends Document {
 }
 
 export interface IEmailJob {
-  receiverEmail: string;
-  subject: string;
-  body: string;
+  name: string | null;
+  email: string | null;
+  amount_total: number | null;
+  pickupDate: string | null;
+  orderNumber: number | null;
 }

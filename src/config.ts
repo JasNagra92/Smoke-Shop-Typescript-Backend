@@ -14,6 +14,9 @@ class Config {
   SENDER_PASSWORD: string | undefined;
   SENDGRID_API_KEY: string | undefined;
   REDIS_HOST: string | undefined;
+  STRIPE_API_KEY: string | undefined;
+  STRIPE_ENDPOINT_SECRET: string | undefined;
+  EC2_URL: string | undefined;
   SENDER_EMAIL: string | undefined;
   SENDER_PASSWORD: string | undefined;
 
@@ -28,6 +31,9 @@ class Config {
     this.SENDER_PASSWORD = process.env.SENDER_PASSWORD;
     this.SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
     this.REDIS_HOST = process.env.REDIS_HOST;
+    this.STRIPE_API_KEY = process.env.STRIPE_API_KEY;
+    this.STRIPE_ENDPOINT_SECRET = process.env.STRIPE_ENDPOINT_SECRET;
+    this.EC2_URL = process.env.EC2_URL;
   }
   public validateConfig(): void {
     for (const [key, value] of Object.entries(this)) {

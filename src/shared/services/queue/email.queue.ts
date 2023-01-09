@@ -5,9 +5,10 @@ import { BaseQueue } from './base.queue';
 class EmailQueue extends BaseQueue {
   constructor() {
     super('email');
-    this.processJob('sendEmail', 5, emailWorker.sendEmail);
+    this.processJob('sendForgotPasswordEmail', 5, emailWorker.sendForgotPasswordEmail);
+    this.processJob('sendReceiptEmail', 5, emailWorker.sendReceiptEmail);
   }
-  public addUserJob(name: string, data: IEmailJob): void {
+  public addJob(name: string, data: IEmailJob): void {
     this.addJob(name, data);
   }
 }

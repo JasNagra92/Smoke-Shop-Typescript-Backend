@@ -8,16 +8,9 @@ sendGridMail.setApiKey(config.SENDGRID_API_KEY!);
 const log: Logger = config.createLogger('mail');
 
 export class EmailServices {
-  public async sendReceiptEmail(
-    receiverEmail: string,
-    name: string,
-    email: string,
-    orderNumber: string,
-    pickupDate: any,
-    amount_total: number
-  ): Promise<void> {
+  public async sendReceiptEmail(name: string, email: string, orderNumber: number, pickupDate: any, amount_total: number): Promise<void> {
     const msg: sendGridMail.MailDataRequired = {
-      to: config.NODE_ENV === 'development' ? config.SENDER_EMAIL : receiverEmail,
+      to: config.NODE_ENV === 'development' ? config.SENDER_EMAIL : email,
       from: config.NODE_ENV === 'development' ? config.SENDER_EMAIL! : 'nagra-smoke-house@outlook.com',
       templateId: 'd-b4a225546f484a32b1e882fd3bfaf9ce',
       dynamicTemplateData: {
@@ -31,6 +24,7 @@ export class EmailServices {
         })
       }
     };
+
     try {
       await sendGridMail.send(msg);
       log.info('email sent successfully');

@@ -1,3 +1,4 @@
+import { userQueue } from './../../../shared/services/queue/user.queue';
 import { BadRequestError } from '../../../shared/globals/helpers/errorHandler';
 import { IAuthPayload } from './../interfaces/auth.interface';
 import { userServices } from './../../../shared/services/db/user.services';
@@ -29,9 +30,8 @@ export class SignUp {
       // add user Id to data sent from the front end form
       const dataToSave = SignUp.prototype.createUserDocument(userId, { username, password, email, phoneNumber, name });
 
-      // save user to database
-      await userServices.addUserToDB(dataToSave);
-
+      // add save user to db job to queue
+      userQueue.addUserJob('addUserToDB', dataToSave);
       // create jwt with user data
       const token = SignUp.prototype.signToken({ username, email, userId });
 
@@ -50,7 +50,7 @@ export class SignUp {
   private createUserDocument(userId: string, data: any): IUserDocument {
     const { username, password, email, phoneNumber, name } = data;
     return {
-      userId: userId,
+      userId,
       username,
       name,
       password,

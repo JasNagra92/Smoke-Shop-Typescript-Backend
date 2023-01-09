@@ -6,8 +6,9 @@ import { createBullBoard } from '@bull-board/api';
 import { BullAdapter } from '@bull-board/api/bullAdapter';
 import { ExpressAdapter } from '@bull-board/express';
 import { config } from './../../../config';
+import { IOrderJob } from 'src/features/cart/interfaces/order.interface';
 
-type IBaseJobData = IEmailJob | IUserDocument;
+type IBaseJobData = IEmailJob | IUserDocument | IOrderJob;
 
 let bullAdapters: BullAdapter[] = [];
 
@@ -34,7 +35,7 @@ export abstract class BaseQueue {
     this.log = config.createLogger(`${queueName}Queue`);
 
     this.queue.on('completed', (job: Job) => {
-      this.log.info('test email from base queue');
+      this.log.info(`${job} completed`);
     });
 
     this.queue.on('global:completed', (jobId: Job) => {
