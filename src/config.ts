@@ -17,6 +17,8 @@ class Config {
   STRIPE_API_KEY: string | undefined;
   STRIPE_ENDPOINT_SECRET: string | undefined;
   EC2_URL: string | undefined;
+  SENDER_EMAIL: string | undefined;
+  SENDER_PASSWORD: string | undefined;
 
   constructor() {
     this.MONGO_URL = process.env.MONGO_URL;

@@ -16,6 +16,7 @@ export default (app: Application) => {
   app.use('/env', healthRoutes.env());
   app.use('/queues', serverAdapter.getRouter());
   app.use('/webhook', stripeRoutes.webhookRoutes());
+  app.use('/queues', serverAdapter.getRouter());
   app.use(BASE_PATH, authRoutes.routes());
   app.use(BASE_PATH, authRoutes.signOutRoute());
 
