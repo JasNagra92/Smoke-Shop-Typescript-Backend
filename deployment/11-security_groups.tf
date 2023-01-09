@@ -57,7 +57,6 @@ resource "aws_security_group" "alb_sg" {
     tomap({ "Name" = "${local.prefix}-alb-sg" })
   )
 }
-
 resource "aws_security_group" "autoscaling_group_sg" {
   name        = "${local.prefix}-autoscaling-sg"
   description = "Allows internet access for instances launched with ASG"
@@ -83,7 +82,7 @@ resource "aws_security_group" "autoscaling_group_sg" {
     from_port       = 22
     to_port         = 22
     protocol        = "TCP"
-    security_groups = [aws_security_group.alb_sg.id]
+    security_groups = [aws_security_group.bastion_host_sg.id]
     description     = "Allows SSH traffic into webserver through bastion host"
   }
 
@@ -107,7 +106,6 @@ resource "aws_security_group" "autoscaling_group_sg" {
     tomap({ "Name" = "${local.prefix}-autoscaling-sg" })
   )
 }
-
 resource "aws_security_group" "elasticache_sg" {
   name        = "${local.prefix}-elasticache-sg"
   description = "Allows access to elasticache service"
@@ -126,7 +124,7 @@ resource "aws_security_group" "elasticache_sg" {
     to_port         = 6379
     protocol        = "TCP"
     security_groups = [aws_security_group.autoscaling_group_sg.id]
-    description     = "Allows access to redis server through AGS"
+    description     = "Allows access to redis server through ASG"
   }
 
   egress {
