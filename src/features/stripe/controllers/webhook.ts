@@ -3,10 +3,10 @@ import { emailQueue } from './../../../shared/services/queue/email.queue';
 import { orderQueue } from './../../../shared/services/queue/order.queue';
 /* eslint-disable no-unsafe-optional-chaining */
 import { Request, Response } from 'express';
-import { config } from 'src/config';
+import { config } from '../../../config';
 import Logger from 'bunyan';
 import Stripe from 'stripe';
-import { Helpers } from 'src/shared/globals/helpers/helpers';
+import { Helpers } from '../../../shared/globals/helpers/helpers';
 import { formatInTimeZone } from 'date-fns-tz';
 
 const endpointSecret: string = config.STRIPE_ENDPOINT_SECRET!;

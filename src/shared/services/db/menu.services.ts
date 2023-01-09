@@ -1,7 +1,7 @@
 import { IOrderItemFrontEnd } from './../../../features/cart/interfaces/order.interface';
 import { IMenuItemDocumentFrontEnd } from './../../../features/menu/interfaces/menu.interface';
-import { IMenuItemDocumentBackend } from 'src/features/menu/interfaces/menu.interface';
-import { MenuItemModel } from 'src/features/menu/models/menu.model';
+import { IMenuItemDocumentBackend } from '../../../features/menu/interfaces/menu.interface';
+import { MenuItemModel } from '../../../features/menu/models/menu.model';
 import mongoose from 'mongoose';
 
 class MenuItemService {

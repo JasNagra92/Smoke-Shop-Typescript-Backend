@@ -2,7 +2,7 @@ import { IOrderItemBackend, IOrderItemFrontEnd } from './../../../features/cart/
 import { orderModel } from '../../../features/cart/models/order.model';
 import { Stripe } from 'stripe';
 import { IOrderForDatabase } from '../../../features/cart/interfaces/order.interface';
-import { IMenuItemDocumentBackend } from 'src/features/menu/interfaces/menu.interface';
+import { IMenuItemDocumentBackend } from '../../../features/menu/interfaces/menu.interface';
 import { menuItemService } from './menu.services';
 
 class OrderServices {

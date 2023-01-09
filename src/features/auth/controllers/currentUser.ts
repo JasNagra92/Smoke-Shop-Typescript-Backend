@@ -1,5 +1,5 @@
 import { userServices } from './../../../shared/services/db/user.services';
-import { IUserDocument } from 'src/features/user/interfaces/user.interface';
+import { IUserDocument } from '../../user/interfaces/user.interface';
 import { Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
 

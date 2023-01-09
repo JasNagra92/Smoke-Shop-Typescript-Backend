@@ -1,5 +1,5 @@
-import { IOrderForDatabase } from 'src/features/cart/interfaces/order.interface';
-import { orderModel } from 'src/features/cart/models/order.model';
+import { IOrderForDatabase } from '../../../features/cart/interfaces/order.interface';
+import { orderModel } from '../../../features/cart/models/order.model';
 
 export class Helpers {
   static createRandomIntegers(num: number): string {

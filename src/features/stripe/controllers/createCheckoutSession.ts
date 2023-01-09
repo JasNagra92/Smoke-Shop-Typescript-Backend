@@ -6,7 +6,7 @@ import HTTP_STATUS from 'http-status-codes';
 import { IOrderPayload } from '../../cart/interfaces/order.interface';
 import { Request, Response } from 'express';
 import Stripe from 'stripe';
-import { config } from 'src/config';
+import { config } from '../../../config';
 import Logger from 'bunyan';
 
 const log: Logger = config.createLogger('checkoutSessionLog');
