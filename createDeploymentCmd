@@ -1,0 +1,7 @@
+aws deploy create-deployment \
+    --region us-west-2 \
+    --application-name smokeServer-default-app \
+    --deployment-config-name CodeDeployDefault.AllAtOnce \
+    --deployment-group-name smokeServer-default-group \
+    --file-exists-behavior "OVERWRITE" \
+    --s3-location bucket=smokeserver-app,bundleType=zip,key=Smoke-Shop-Typescript-Backend.zip
