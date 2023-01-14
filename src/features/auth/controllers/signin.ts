@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import JWT from 'jsonwebtoken';
 import { config } from '../../../config';
 import HTTP_STATUS from 'http-status-codes';
+import { ValidationError } from '../../../shared/globals/helpers/errorHandler';
 
 export class SignIn {
   public async verify(req: Request, res: Response): Promise<void> {
@@ -11,12 +12,12 @@ export class SignIn {
 
     const user = await userServices.findUserByUsername(username);
     if (!user) {
-      throw new Error('username not found');
+      throw new ValidationError('username not found');
     }
     // check password in request body with password stored in database
     const checkPassword: boolean = await user?.comparePassword(password);
     if (!checkPassword) {
-      throw new Error('passwords do not match');
+      throw new ValidationError('passwords do not match');
     }
     // create jwt token with retrieved user information
     const userJwt: string = JWT.sign(

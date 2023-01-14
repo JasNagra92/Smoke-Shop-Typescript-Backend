@@ -16,11 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@bull-board/api": "^4.6.4",
-    "@bull-board/express": "^4.6.4",
-    "@bull-board/ui": "^4.6.4",
     "@sendgrid/mail": "^7.7.0",
-    "@typescript-eslint/eslint-plugin": "^5.46.0",
     "@bull-board/api": "^4.6.4",
     "@bull-board/express": "^4.6.4",
     "@bull-board/ui": "^4.6.4",
